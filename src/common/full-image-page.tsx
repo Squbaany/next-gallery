@@ -1,17 +1,28 @@
-import Image from "next/image";
+import { clerkClient } from "@clerk/nextjs/server";
 import { getImage } from "~/server/queries";
 
 export default async function FullImagePage(props: { photoId: number }) {
   const image = await getImage(props.photoId);
 
+  const uploaderInfo = await clerkClient.users.getUser(image!.userId);
+
   return (
-    <div className="relative h-96 w-96">
-      <Image
-        src={image.url}
-        alt={image.name}
-        fill
-        style={{ objectFit: "cover" }}
-      />
+    <div className="flex h-full w-full min-w-0 items-center justify-center text-black">
+      <div className="flex max-w-4xl flex-row bg-white p-1">
+        <div className="flex-shrink">
+          <img src={image!.url} alt={image!.name} className="object-contain" />
+        </div>
+
+        <div className="flex w-72 flex-shrink-0 flex-col gap-4 p-4">
+          <div className="p-2 text-center text-xl font-bold">{image!.name}</div>
+          <div className="flex flex-row">
+            Uploaded by: {uploaderInfo.fullName}
+          </div>
+          <div className="flex flex-row">
+            Uploaded on: {image?.createdAt.toLocaleDateString()}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
