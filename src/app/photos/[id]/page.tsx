@@ -1,7 +1,6 @@
-import { Modal } from "./modal";
 import FullImagePage from "~/common/full-image-page";
 
-export default function PhotoModal({
+export default function PhotoPage({
   params: { id: photoId },
 }: {
   params: {
@@ -13,9 +12,5 @@ export default function PhotoModal({
     throw new Error("Invalid photo ID");
   }
 
-  return (
-    <Modal>
-      <FullImagePage photoId={idAsNumber} />
-    </Modal>
-  );
+  return <FullImagePage photoId={idAsNumber} />;
 }
