@@ -11,7 +11,10 @@ async function Images() {
   return (
     <div className="flex flex-wrap justify-center gap-4 p-4">
       {images.map((image) => (
-        <div key={image.id} className="flex flex-col border-4 border-white">
+        <div
+          key={image.id}
+          className="flex flex-col border-4 border-white bg-white"
+        >
           <Link href={`/photos/${image.id}`}>
             <div className="relative h-48 w-48">
               <Image
@@ -21,7 +24,7 @@ async function Images() {
                 style={{ objectFit: "cover" }}
               />
             </div>
-            <div className="bg-white p-1 text-center text-black">
+            <div className="w-48 truncate bg-white p-1 text-center text-black">
               {image.name}
             </div>
           </Link>
